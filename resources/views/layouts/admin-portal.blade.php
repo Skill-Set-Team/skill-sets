@@ -41,7 +41,7 @@
                     <a href="#">Question Types</a>
                     <ul class="submenu menu vertical" data-submenu>
                         <li><a href="{{route('questiontype.index')}}">All Question Types</a></li>
-                        <li><a href="{{route('questiontype.create')}}">Create Question Types</a></li>
+                        <li><a href="{{route('questiontype.create')}}">Create Question Type</a></li>
                     </ul>
                 </li>
                 <li class="has-submenu">
