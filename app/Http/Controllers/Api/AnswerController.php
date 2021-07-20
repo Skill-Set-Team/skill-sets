@@ -8,7 +8,6 @@ use App\Models\Exercise;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use function GuzzleHttp\Promise\all;
 
 class AnswerController extends Controller
 {
@@ -32,11 +31,22 @@ class AnswerController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'solution' => 'required',
+            'isCorrect' => 'required|boolean',
+            'exercise_id' => 'required|int|exists:exercises,id'
+        ]);
+        $exercise = Exercise::findOrFail($request->get('exercise_id'));
+        $answer = new Answer([
+            'solution' => $request->get('solution'),
+            'isCorrect' => $request->boolean('isCorrect')
+        ]);
+        $exercise->answers()->save($answer);
+        return response()->json($answer, JsonResponse::HTTP_CREATED);
     }
 
     /**
