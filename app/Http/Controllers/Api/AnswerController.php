@@ -83,11 +83,12 @@ class AnswerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  Answer $answer
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Answer $answer)
     {
-        //
+        $answer->delete();
+        return response()->json(null, JsonResponse::HTTP_NO_CONTENT);
     }
 }
