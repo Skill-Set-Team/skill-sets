@@ -7,6 +7,7 @@ use App\Models\Answer;
 use App\Models\Exercise;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use function GuzzleHttp\Promise\all;
 
 class AnswerController extends Controller
@@ -30,7 +31,7 @@ class AnswerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,24 +42,32 @@ class AnswerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Answer $answer
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(Answer $answer)
     {
-        //
+        return response()->json($answer, JsonResponse::HTTP_OK);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Answer $answer
+     * @return JsonResponse
+     * @throws ValidationException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Answer $answer)
     {
-        //
+        $this->validate($request, [
+            'solution' => 'required',
+            'isCorrect' => 'boolean'
+        ]);
+        $answer->solution = $request->get('solution');
+        $answer->isCorrect = $request->boolean('isCorrect');
+        $answer->save();
+        return response()->json($answer, JsonResponse::HTTP_OK);
     }
 
     /**
