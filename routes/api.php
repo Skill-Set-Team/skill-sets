@@ -25,3 +25,11 @@ Route::apiResource('exercise', App\Http\Controllers\Api\ExerciseController::clas
     'update'  => 'api.exercise.update',
     'destroy' => 'api.exercise.destroy',
 ]);
+
+Route::apiResource('answer', App\Http\Controllers\Api\AnswerController::class)->names([
+    'index'   => 'api.answer.index',
+    'store'   => 'api.answer.store',
+    'show'    => 'api.answer.show',
+    'update'  => 'api.answer.update',
+    'destroy' => 'api.answer.destroy',
+]);
