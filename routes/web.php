@@ -26,4 +26,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::resource('exercise', \App\Http\Controllers\ExerciseController::class);
     Route::get('exercise/{exercise}/delete', '\App\Http\Controllers\ExerciseController@delete')->name('exercise.delete');
+
+    Route::resource('answer', \App\Http\Controllers\AnswerController::class)->except('index');
+    Route::get('answer/{answer}/delete', '\App\Http\Controllers\AnswerController@delete')->name('answer.delete');
 });

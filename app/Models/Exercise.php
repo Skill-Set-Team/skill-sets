@@ -25,4 +25,11 @@ class Exercise extends Model
     public function questionType() {
         return $this->belongsTo(QuestionType::class);
     }
+
+    /**
+     * Answers for the exercise (many-to-one relationship)
+     */
+    public function answers() {
+        return $this->hasMany(Answer::class);
+    }
 }
